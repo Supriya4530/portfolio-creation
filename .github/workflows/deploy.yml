@@ -14,11 +14,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Print GITHUB_TOKEN to confirm it's available
+      - name: Print GITHUB_TOKEN
+        run: |
+          echo "GITHUB_TOKEN is available"
+          echo "Token value: ${{ secrets.GITHUB_TOKEN }}"  # Token will be masked in the logs
+          
       # Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Specify the Node.js version to use
+          node-version: '16'
+
+      # Set Git user name and email
+      - name: Set Git user name and email
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
 
       # Install dependencies
       - name: Install dependencies
@@ -28,8 +40,13 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      # Set up GitHub token for authentication
+      - name: Set up GitHub token for authentication
+        run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
-          CI: false  # Disable the default behavior of preventing GitHub Pages deployment
+          CI: false  # Disable the default CI behavior
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token for authentication
