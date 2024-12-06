@@ -39,3 +39,4 @@ jobs:
         run: npm run deploy
         env:
           CI: false  # Disable the default behavior of preventing GitHub Pages deployment
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token provided automatically
