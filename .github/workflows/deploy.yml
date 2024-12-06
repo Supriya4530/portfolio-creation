@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to the 'main' branch
+      - main  # Trigger deployment on push to the 'main'  branch
 
 jobs:
   build:
@@ -44,3 +44,4 @@ jobs:
         env:
           CI: false  # Disable the default CI behavior
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token for authentication
+          
