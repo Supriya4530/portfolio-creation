@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "gh-pages": "^6.2.0"
-  },
+  }
   
 
 }
