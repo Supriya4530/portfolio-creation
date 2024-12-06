@@ -20,11 +20,11 @@ jobs:
         with:
           node-version: '16'  # Specify the Node.js version to use
 
-      # Configure Git with user details
+      # Set Git user name and email
       - name: Set Git user name and email
         run: |
-          git config --global user.name "Supriya4530"
-          git config --global user.email "supriyasukale11@gmail.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
 
       # Install dependencies
       - name: Install dependencies
@@ -34,9 +34,13 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      # Add GitHub token for authentication
+      - name: Set up GitHub token for authentication
+        run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
-          CI: false  # Disable the default behavior of preventing GitHub Pages deployment
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token provided automatically
+          CI: false  # Disable the default CI behavior
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token for authentication
