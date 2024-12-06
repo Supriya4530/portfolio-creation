@@ -1,0 +1,29 @@
+.template-selector {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.template-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.template-option {
+  padding: 10px 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.template-option:hover {
+  background-color: #f0f0f0;
+  border-color: #007bff;
+}
+
+.template-option.selected {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}

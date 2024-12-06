@@ -1,0 +1,130 @@
+/* General container and form layout */
+.portfolio-generator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  .portfolio-generator h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  /* Form input and textareas */
+  .portfolio-generator input,
+  .portfolio-generator textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f8f8f8;
+    transition: border-color 0.3s ease;
+  }
+  
+  .portfolio-generator input:focus,
+  .portfolio-generator textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #fff;
+  }
+  
+  .portfolio-generator input[type="file"] {
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 1rem;
+  }
+  
+  .portfolio-generator textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  /* Buttons */
+  .portfolio-generator button {
+    padding: 14px 30px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .portfolio-generator button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  .portfolio-generator button:active {
+    background-color: #003c82;
+    transform: translateY(0);
+  }
+  
+  /* Input labels */
+  .portfolio-generator label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  /* Form layout tweaks */
+  .portfolio-generator form {
+    width: 100%;
+    max-width: 700px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .portfolio-generator form input,
+  .portfolio-generator form textarea {
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .portfolio-generator form input[type="file"] {
+    font-size: 1rem;
+  }
+  
+  /* Add some margin for spacing between form elements */
+  .portfolio-generator form > *:not(button) {
+    margin-bottom: 20px;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .portfolio-generator {
+      padding: 40px 10px;
+    }
+  
+    .portfolio-generator h2 {
+      font-size: 1.8rem;
+    }
+  
+    .portfolio-generator input,
+    .portfolio-generator textarea {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    .portfolio-generator button {
+      width: 100%;
+    }
+  }
+  
