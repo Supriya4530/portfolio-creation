@@ -39,5 +39,7 @@
   },
   "devDependencies": {
     "gh-pages": "^6.2.0"
-  }
+  },
+  "homepage": "https://supriya4530.github.io/portfolio-creation"
+
 }
