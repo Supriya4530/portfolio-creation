@@ -47,6 +47,12 @@ jobs:
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         run: npm run deploy
+        
+      # List files in the root directory
+      - name: List files in root directory
+        run: |
+          echo "Listing files in the root directory:"
+          ls -la   
         env:
           CI: false  # Disable the default CI behavior
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token for authentication
