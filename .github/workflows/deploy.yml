@@ -46,7 +46,21 @@ jobs:
           echo "Build completed. Listing files in the build directory:"
           ls -la build
 
-      # Step 5: Deploy to GitHub Pages (using gh-pages package)
+      # Step 5: Configure Git user for deployment
+      - name: Configure Git user
+        run: |
+          git config --global user.name "Supriya4530"
+          git config --global user.email "supriyasukale11@gmail.com"
+      - name: Print Git Config
+        run: git config --list
+
+      # Step 6: Set up GitHub authentication using GITHUB_TOKEN
+      - name: Set up GitHub authentication
+        run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+      - name: Print GitHub Remote
+        run: git remote -v
+
+      # Step 7: Deploy to GitHub Pages (using gh-pages package)
       - name: Deploy to GitHub Pages
         run: |
           echo "Deploying to GitHub Pages..."
