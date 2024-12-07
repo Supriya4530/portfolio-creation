@@ -46,14 +46,13 @@ jobs:
           echo "Build completed. Listing files in the build directory:"
           ls -la build
 
-      # Step 5: Deploy to GitHub Pages
+      # Step 5: Deploy to GitHub Pages (using gh-pages package)
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build  # Path to the folder containing the build output
+        run: |
+          echo "Deploying to GitHub Pages..."
+          npm install --save-dev gh-pages
+          npm run deploy  # This runs the deploy script you set up in package.json
       - name: Print Deployment Status
         run: |
           echo "Deployment complete. Files in the root directory:"
           ls -la
-
