@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://supriya4530.github.io/portfolio-creation",
+  "homepage": "https://supriya4530.github.io/",
   "dependencies": {
     "cra-template": "1.2.0",
     "html-to-image": "^1.11.11",
