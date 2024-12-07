@@ -53,6 +53,11 @@ jobs:
         run: |
           echo "Listing files in the root directory:"
           ls -la   
+       # List files in a specific directory
+      - name: List files in a specific directory
+        run: |
+          echo "Listing files in the src directory:"
+          ls -la build     
         env:
           CI: false  # Disable the default CI behavior
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token for authentication
