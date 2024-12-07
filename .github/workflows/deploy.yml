@@ -3,61 +3,57 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to the 'main' branch
+      - main  # Trigger deployment when changes are pushed to the 'main' branch
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository code
-      - name: Checkout repository
+      # Step 1: Checkout the repository
+      - name: Checkout code
         uses: actions/checkout@v3
-
-      # Print GITHUB_TOKEN to confirm it's available
-      - name: Print GITHUB_TOKEN
+        id: checkout
+      - name: Print Checkout Info
         run: |
-          echo "GITHUB_TOKEN is available"
-          echo "Token value: ${{ secrets.GITHUB_TOKEN }}"  # Token will be masked in the logs
-          
-      # Set up Node.js environment
+          echo "Checked out repository to $(pwd)"
+          echo "Listing files in the repository root:"
+          ls -la
+
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
-
-      # Set Git user name and email
-      - name: Set Git user name and email
+          node-version: '16'  # Ensure the Node.js version matches your project requirements
+      - name: Print Node.js Version
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          node --version
+          npm --version
 
-      # Install dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
+      - name: Print Installed Packages
+        run: |
+          echo "Installed dependencies:"
+          npm list --depth=2
 
-      # Build the project
+      # Step 4: Build the project
       - name: Build the project
         run: npm run build
+      - name: Print Build Directory
+        run: |
+          echo "Build completed. Listing files in the build directory:"
+          ls -la build
 
-      # Set up GitHub token for authentication
-      - name: Set up GitHub token for authentication
-        run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-
-      # Deploy to GitHub Pages
+      # Step 5: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        run: npm run deploy
-        
-      # List files in the root directory
-      - name: List files in root directory
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # Path to the folder containing the build output
+      - name: Print Deployment Status
         run: |
-          echo "Listing files in the root directory:"
-          ls -la   
-       # List files in a specific directory
-      - name: List files in a specific directory
-        run: |
-          echo "Listing files in the src directory:"
-          ls -la build     
-        env:
-          CI: false  # Disable the default CI behavior
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token for authentication
+          echo "Deployment complete. Files in the root directory:"
+          ls -la
+
