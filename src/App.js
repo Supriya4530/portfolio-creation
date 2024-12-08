@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/portfolio-creation/generate" element={<PortfolioGenerator />} />
+        <Route path="/generate" element={<PortfolioGenerator />} />
       </Routes>
     </Router>
   );
