@@ -7,11 +7,11 @@ import './App.css';
 
 function App() {
   return (
-    <Router basename='./'>
+    <Router >
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/generate" element={<PortfolioGenerator />} />
+        <Route path="/portfolio-creation/generate" element={<PortfolioGenerator />} />
       </Routes>
     </Router>
   );
