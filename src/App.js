@@ -7,11 +7,12 @@ import './App.css';
 
 function App() {
   return (
-    <Router >
+    <Router>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/generate" element={<PortfolioGenerator />} />
+        <Route path="*" element={<div>404: Page Not Found</div>} />
       </Routes>
     </Router>
   );
