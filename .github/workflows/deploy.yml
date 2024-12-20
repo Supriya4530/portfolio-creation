@@ -23,7 +23,7 @@ jobs:
     # Install dependencies and build the project
     - name: Install Dependencies and Build
       run: |
-        npm ci
+        npm ci 
         npm run build
 
     # Deploy to S3
