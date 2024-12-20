@@ -1,72 +1,39 @@
-name: Deploy to GitHub Pages
+name: Deploy to AWS S3
 
 on:
   push:
     branches:
-      - main  # Trigger deployment when changes are pushed to the 'main' branch
+      - main # Deploys only on push to the main branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
-        id: checkout
-      - name: Print Checkout Info
-        run: |
-          echo "Checked out repository to $(pwd)"
-          echo "Listing files in the repository root:"
-          ls -la
+    # Checkout the repository
+    - name: Checkout Code
+      uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'  # Ensure the Node.js version matches your project requirements
-      - name: Print Node.js Version
-        run: |
-          node --version
-          npm --version
+    # Install Node.js (Adjust the version as per your project)
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16' # Use the appropriate Node.js version for your project
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-      - name: Print Installed Packages
-        run: |
-          echo "Installed dependencies:"
-          npm list --depth=2
+    # Install dependencies and build the project
+    - name: Install Dependencies and Build
+      run: |
+        npm ci
+        npm run build
 
-      # Step 4: Build the project
-      - name: Build the project
-        run: npm run build
-      - name: Print Build Directory
-        run: |
-          echo "Build completed. Listing files in the build directory:"
-          ls -la build
-
-      # Step 5: Configure Git user for deployment
-      - name: Configure Git user
-        run: |
-          git config --global user.name "Supriya4530"
-          git config --global user.email "supriyasukale11@gmail.com"
-      - name: Print Git Config
-        run: git config --list
-
-      # Step 6: Set up GitHub authentication using GITHUB_TOKEN
-      - name: Set up GitHub authentication
-        run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-      - name: Print GitHub Remote
-        run: git remote -v
-
-      # Step 7: Deploy to GitHub Pages (using gh-pages package)
-      - name: Deploy to GitHub Pages
-        run: |
-          echo "Deploying to GitHub Pages..."
-          npm install --save-dev gh-pages
-          npm run deploy  # This runs the deploy script you set up in package.json
-      - name: Print Deployment Status
-        run: |
-          echo "Deployment complete. Files in the root directory:"
-          ls -la
+    # Deploy to S3
+    - name: Deploy to AWS S3
+      uses: jakejarvis/s3-sync-action@v0.6.2
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: portfolio-generation  # Replace with your bucket name
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ap-south-1  # Replace with your AWS region (e.g., us-east-1)
+        SOURCE_DIR: build  # Adjust if your build output directory is different
