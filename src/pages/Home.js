@@ -12,7 +12,7 @@ const Home = () => {
     <div className="home">
       <h1>Welcome to Portfolio Generator</h1>
       <p>Create stunning and professional portfolios effortlessly!</p>
-      <button onClick={handleNavigation}>Get Started</button>
+      <button onClick={handleNavigation}>Click Here to Get Started</button>
     </div>
   );
 };
